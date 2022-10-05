@@ -88,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage>{
                 ),
                 child: Container(
                   alignment: Alignment.bottomLeft,
-                  child: Text("FlutterTutorial.Net",
+                  child: Text("SHEELD SOFTWARE",
                     style: TextStyle(fontSize: 25,color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -209,12 +209,12 @@ class _ProfilePageState extends State<ProfilePage>{
                                         ListTile(
                                           leading: Icon(Icons.email),
                                           title: Text("Email"),
-                                          subtitle: Text("donaldtrump@gmail.com"),
+                                          subtitle: Text("deniskyalo28@gmail.com"),
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.phone),
                                           title: Text("Phone"),
-                                          subtitle: Text("99--99876-56"),
+                                          subtitle: Text("0757029794"),
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.person),

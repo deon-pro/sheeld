@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage>{
                 child: Column(
                   children: [
                     Text(
-                      'Hello',
+                      'WELCOME TO SHEELD',
                       style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
                     ),
                     Text(
