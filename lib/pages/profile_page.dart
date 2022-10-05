@@ -10,6 +10,7 @@ import 'forgot_password_page.dart';
 import 'forgot_password_verification_page.dart';
 import 'registration_page.dart';
 
+
 class ProfilePage extends StatefulWidget{
 
   @override
@@ -93,6 +94,8 @@ class _ProfilePageState extends State<ProfilePage>{
                   ),
                 ),
               ),
+
+              
               ListTile(
                 leading: Icon(Icons.screen_lock_landscape_rounded, size: _drawerIconSize, color: Theme.of(context).accentColor,),
                 title: Text('Splash Screen', style: TextStyle(fontSize: 17, color: Theme.of(context).accentColor),),
@@ -116,6 +119,8 @@ class _ProfilePageState extends State<ProfilePage>{
                   Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()),);
                 },
               ),
+
+              
               Divider(color: Theme.of(context).primaryColor, height: 1,),
               ListTile(
                 leading: Icon(Icons.password_rounded, size: _drawerIconSize,color: Theme.of(context).accentColor,),
@@ -167,9 +172,9 @@ class _ProfilePageState extends State<ProfilePage>{
                     child: Icon(Icons.person, size: 80, color: Colors.grey.shade300,),
                   ),
                   SizedBox(height: 20,),
-                  Text('Mr. Donald Trump', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                  Text('TOP G DEON', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                   SizedBox(height: 20,),
-                  Text('Former President', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  Text('PRESIDENT OF THUGS', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                   SizedBox(height: 10,),
                   Container(
                     padding: EdgeInsets.all(10),
@@ -204,7 +209,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                               horizontal: 12, vertical: 4),
                                           leading: Icon(Icons.my_location),
                                           title: Text("Location"),
-                                          subtitle: Text("USA"),
+                                          subtitle: Text("KENYA"),
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.email),
@@ -220,7 +225,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                           leading: Icon(Icons.person),
                                           title: Text("About Me"),
                                           subtitle: Text(
-                                              "This is a about me link and you can khow about me in this section."),
+                                              "WEB AND SOFTWARE DEVELOPER."),
                                         ),
                                       ],
                                     ),

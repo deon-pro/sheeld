@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage>{
                   children: [
                     Text(
                       'WELCOME TO SHEELD',
-                      style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold, color: Colors.red),
                     ),
                     Text(
                       'Signin into your account',
