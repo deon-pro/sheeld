@@ -172,9 +172,9 @@ class _ProfilePageState extends State<ProfilePage>{
                     child: Icon(Icons.person, size: 80, color: Colors.grey.shade300,),
                   ),
                   SizedBox(height: 20,),
-                  Text('TOP G DEON', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                  Text('TOP G DEOn', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                   SizedBox(height: 20,),
-                  Text('PRESIDENT OF THUGS', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  Text('PRESIDENT OF THUG,s', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                   SizedBox(height: 10,),
                   Container(
                     padding: EdgeInsets.all(10),
