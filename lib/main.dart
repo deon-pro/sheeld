@@ -30,7 +30,7 @@ class LoginUiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SHEELD SOFTWARE',
+      title: 'SHEELD Software',
       theme: ThemeData(
         primaryColor: _primaryColor,
         scaffoldBackgroundColor: Colors.grey.shade100, colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(secondary: _accentColor),
