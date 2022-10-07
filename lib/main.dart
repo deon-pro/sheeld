@@ -33,7 +33,7 @@ class LoginUiApp extends StatelessWidget {
       title: 'SHEELD SOFTWARE',
       theme: ThemeData(
         primaryColor: _primaryColor,
-        scaffoldBackgroundColor: Colors.grey.shade100, colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(secondary: _accentColor),
+        scaffoldBackgroundColor: Color.fromARGB(255, 218, 27, 27), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(secondary: _accentColor),
       ),
       home: SplashScreen(title: "SHEELD LOGIN"),
     );
