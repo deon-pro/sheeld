@@ -89,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage>{
                 ),
                 child: Container(
                   alignment: Alignment.bottomLeft,
-                  child: Text("SHEELD SOFTWARE",
+                  child: Text("SHEELD SOFTWAR",
                     style: TextStyle(fontSize: 25,color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
