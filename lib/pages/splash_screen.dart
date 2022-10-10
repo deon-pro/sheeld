@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white,
+              color: Color.fromARGB(255, 187, 31, 31),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.3),
