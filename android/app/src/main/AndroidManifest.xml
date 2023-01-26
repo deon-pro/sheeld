@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.fluttertutorial.flutter_login_ui">
+    package="net.fluttertutorial.Sheeld">
    <application
-        android:label="flutter_login_ui"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Sheeld"
+        android:icon="@mipmap/launcher_icon">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyB13c2Frkx140fmPX3ACmm6_88p_Z3nwrA"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

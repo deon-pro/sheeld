@@ -1,5 +1,5 @@
-name: flutter_login_ui
-description: A new Flutter Login Registration App Ui Design.
+name: Sheeld
+description: A new Flutter Login Registration App For Sheeld.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -18,23 +18,48 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  hexcolor: ^2.0.4
-  font_awesome_flutter: ^9.1.0
+  hexcolor: ^3.0.1
+  font_awesome_flutter: ^10.2.1
   otp_text_field: ^1.1.1
+  google_maps_flutter: ^2.2.1
+  google_maps_flutter_web: ^0.4.0+3
+  flutter_local_notifications: ^9.1.2
+  timezone: ^0.8.0
+  rxdart: ^0.27.5
+  path_provider: ^2.0.11
+  http: ^0.13.5
+  flutter_native_timezone: ^2.0.0
+  location: ^4.4.0
+  usage: ^4.1.0
+  geolocator: ^9.0.2
+  url_launcher: ^6.1.8
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: "^0.11.0"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/screenshot/SHeeLD.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  
+
+    
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -48,9 +73,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/screenshot/SHeeLD.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

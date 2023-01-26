@@ -1,22 +1,20 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_ui/common/theme_helper.dart';
-import 'package:flutter_login_ui/pages/widgets/header_widget.dart';
+import 'package:Sheeld/common/theme_helper.dart';
+import 'package:Sheeld/pages/widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'profile_page.dart';
 
-class RegistrationPage extends  StatefulWidget{
+class RegistrationPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-     return _RegistrationPageState();
+    return _RegistrationPageState();
   }
 }
 
-class _RegistrationPageState extends State<RegistrationPage>{
-
+class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
@@ -49,8 +47,8 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                      width: 5, color: Colors.white),
+                                  border:
+                                      Border.all(width: 5, color: Colors.white),
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
@@ -77,27 +75,36 @@ class _RegistrationPageState extends State<RegistrationPage>{
                             ],
                           ),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(
+                          height: 30,
+                        ),
                         Container(
                           child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration('First Name', 'Enter your first name'),
+                            decoration: ThemeHelper().textInputDecoration(
+                                'First Name', 'Enter your first name'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(
+                          height: 30,
+                        ),
                         Container(
                           child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration('Last Name', 'Enter your last name'),
+                            decoration: ThemeHelper().textInputDecoration(
+                                'Last Name', 'Enter your last name'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration("E-mail address", "Enter your email"),
+                            decoration: ThemeHelper().textInputDecoration(
+                                "E-mail address", "Enter your email"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
+                              if (!(val!.isEmpty) &&
+                                  !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                                      .hasMatch(val)) {
                                 return "Enter a valid email address";
                               }
                               return null;
@@ -109,11 +116,11 @@ class _RegistrationPageState extends State<RegistrationPage>{
                         Container(
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
-                                "Mobile Number",
-                                "Enter your mobile number"),
+                                "Mobile Number", "Enter your mobile number"),
                             keyboardType: TextInputType.phone,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
+                              if (!(val!.isEmpty) &&
+                                  !RegExp(r"^(\d+)*$").hasMatch(val)) {
                                 return "Enter a valid phone number";
                               }
                               return null;
@@ -151,7 +158,10 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                             state.didChange(value);
                                           });
                                         }),
-                                    Text("I accept all terms and conditions.", style: TextStyle(color: Colors.grey),),
+                                    Text(
+                                      "I accept all terms and conditions.",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ],
                                 ),
                                 Container(
@@ -159,7 +169,10 @@ class _RegistrationPageState extends State<RegistrationPage>{
                                   child: Text(
                                     state.errorText ?? '',
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(color: Theme.of(context).errorColor,fontSize: 12,),
+                                    style: TextStyle(
+                                      color: Theme.of(context).errorColor,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                 )
                               ],
@@ -175,11 +188,13 @@ class _RegistrationPageState extends State<RegistrationPage>{
                         ),
                         SizedBox(height: 20.0),
                         Container(
-                          decoration: ThemeHelper().buttonBoxDecoration(context),
+                          decoration:
+                              ThemeHelper().buttonBoxDecoration(context),
                           child: ElevatedButton(
                             style: ThemeHelper().buttonStyle(),
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
                                 "Register".toUpperCase(),
                                 style: TextStyle(
@@ -193,71 +208,90 @@ class _RegistrationPageState extends State<RegistrationPage>{
                               if (_formKey.currentState!.validate()) {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
-                                        builder: (context) => ProfilePage()
-                                    ),
-                                        (Route<dynamic> route) => false
-                                );
+                                        builder: (context) => ProfilePage()),
+                                    (Route<dynamic> route) => false);
                               }
                             },
                           ),
                         ),
                         SizedBox(height: 30.0),
-                        Text("Or create account using social media",  style: TextStyle(color: Colors.grey),),
+                        Text(
+                          "Or create account using social media",
+                          style: TextStyle(color: Colors.grey),
+                        ),
                         SizedBox(height: 25.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
                               child: FaIcon(
-                                FontAwesomeIcons.googlePlus, size: 35,
-                                color: HexColor("#EC2D2F"),),
-                              onTap: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog("Google Plus","You tap on GooglePlus social icon.",context);
-                                    },
-                                  );
-                                });
-                              },
-                            ),
-                            SizedBox(width: 30.0,),
-                            GestureDetector(
-                              child: Container(
-                                padding: EdgeInsets.all(0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(width: 5, color: HexColor("#40ABF0")),
-                                  color: HexColor("#40ABF0"),
-                                ),
-                                child: FaIcon(
-                                  FontAwesomeIcons.twitter, size: 23,
-                                  color: HexColor("#FFFFFF"),),
+                                FontAwesomeIcons.instagram,
+                                size: 35,
+                                color: HexColor("#EC2D2F"),
                               ),
                               onTap: () {
                                 setState(() {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog("Twitter","You tap on Twitter social icon.",context);
+                                      return ThemeHelper().alartDialog(
+                                          "Instagram",
+                                          "Register Using Instagram.",
+                                          context);
                                     },
                                   );
                                 });
                               },
                             ),
-                            SizedBox(width: 30.0,),
+                            SizedBox(
+                              width: 30.0,
+                            ),
                             GestureDetector(
-                              child: FaIcon(
-                                FontAwesomeIcons.facebook, size: 35,
-                                color: HexColor("#3E529C"),),
+                              child: Container(
+                                padding: EdgeInsets.all(0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                      width: 5, color: HexColor("#40ABF0")),
+                                  color: HexColor("#40ABF0"),
+                                ),
+                                child: FaIcon(
+                                  FontAwesomeIcons.twitter,
+                                  size: 23,
+                                  color: HexColor("#FFFFFF"),
+                                ),
+                              ),
                               onTap: () {
                                 setState(() {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return ThemeHelper().alartDialog("Facebook",
-                                          "You tap on Facebook social icon.",
+                                      return ThemeHelper().alartDialog(
+                                          "Twitter",
+                                          "Register Using Twitter.",
+                                          context);
+                                    },
+                                  );
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 30.0,
+                            ),
+                            GestureDetector(
+                              child: FaIcon(
+                                FontAwesomeIcons.facebook,
+                                size: 35,
+                                color: HexColor("#3E529C"),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ThemeHelper().alartDialog(
+                                          "Facebook",
+                                          "Register Using Facebook.",
                                           context);
                                     },
                                   );
@@ -277,5 +311,4 @@ class _RegistrationPageState extends State<RegistrationPage>{
       ),
     );
   }
-
 }
