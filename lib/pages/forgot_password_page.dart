@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
+// ignore: unnecessary_import
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:Sheeld/common/theme_helper.dart';
-
 import 'forgot_password_verification_page.dart';
 import 'login_page.dart';
 import 'widgets/header_widget.dart';
@@ -16,6 +16,38 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final _emailController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future _sendResetPasswordEmail() async {
+    try {
+      await _auth.sendPasswordResetEmail(email: _emailController.text.trim());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("A password reset link has been sent to your email."),
+          action: SnackBarAction(
+              label: 'OK',
+              onPressed: () {
+                Navigator.of(context).pop();
+              }
+              ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Text(e.toString()),
+    action: SnackBarAction(
+      label: 'OK',
+     onPressed: () {
+                Navigator.of(context).pop();
+              }
+    ),
+  ),
+);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +98,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               height: 10,
                             ),
                             Text(
-                              'We will email you a verification code to check your authenticity.',
+                              'We will email you a verification email to check your authenticity.',
                               style: TextStyle(
                                 color: Colors.black38,
                                 // fontSize: 20,
@@ -83,6 +115,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           children: <Widget>[
                             Container(
                               child: TextFormField(
+                                controller: _emailController,
                                 decoration: ThemeHelper().textInputDecoration(
                                     "Email", "Enter your email"),
                                 validator: (val) {
@@ -119,12 +152,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 ),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ForgotPasswordVerificationPage()),
-                                    );
+                                    _sendResetPasswordEmail();
                                   }
                                 },
                               ),

@@ -1,102 +1,120 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
-
-class Todo extends StatelessWidget {
+class ToDoListPage extends StatefulWidget {
+  const ToDoListPage({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: TodoList());
+  _ToDoListPageState createState() => _ToDoListPageState();
+}
+
+class _ToDoListPageState extends State<ToDoListPage> {
+  String Activity_Title = '';
+
+  createTodos() {
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('Activities').doc(Activity_Title);
+
+    Map<String, String> todos = {'Activity Title': Activity_Title};
+
+    documentReference.set(todos).whenComplete(() {
+      print('$Activity_Title created');
+    });
   }
-}
 
-class TodoList extends StatefulWidget {
-  @override
-  _TodoListState createState() => _TodoListState();
-}
+  deleteTodos(item) {
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('Activities').doc(item);
 
-class _TodoListState extends State<TodoList> {
-  // save data
-  final List<String> _todoList = <String>[];
-  // text field
-  final TextEditingController _textFieldController = TextEditingController();
+    documentReference.delete().whenComplete(() {
+      print('Deleted');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
-
-      appBar: AppBar(
-        backgroundColor: Colors.purple,
+        appBar: AppBar(
+          backgroundColor: Colors.purple,
           title: const Text('TO-DO LIST'),
           centerTitle: true,
-          
         ),
-      
-      
-      body: ListView(children: _getItems()),
-      // add items to the to-do list
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => _displayDialog(context),
-          tooltip: 'Add Item',
-          child: Icon(Icons.add)),
-    );
-  }
-
-  void _addTodoItem(String title) {
-    
-    setState(() {
-      _todoList.add(title);
-    });
-    _textFieldController.clear();
-  }
-
-  
-  Widget _buildTodoItem(String title) {
-    return ListTile(title: Text(title));
-  }
-
-  
-  Future<Future> _displayDialog(BuildContext context) async {
-    
-    return showDialog(
-      
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.lightBlue,
-          title: const Text('Add a task to your list'),
-          
-          content: TextField(
-
-            controller: _textFieldController,
-            decoration: const InputDecoration(hintText: 'Enter task here'),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blue,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
           ),
-          actions: <Widget>[
-            // add button
-           FloatingActionButton(
-              child: const Text('ADD'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _addTodoItem(_textFieldController.text);
-              },
-            ),
-            // Cancel button
-            FloatingActionButton(
-              child: const Text('DROP'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      } 
-    );
-  }
-  // iterates through our todo list title
-  List<Widget> _getItems() {
-    final List<Widget> _todoWidgets = <Widget>[];
-    for (String title in _todoList) {
-      _todoWidgets.add(_buildTodoItem(title));
-    }
-    return _todoWidgets;
+          onPressed: (() => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Add Todo'),
+                  content: Container(
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          onChanged: (String inputItem) {
+                            Activity_Title = inputItem;
+                          },
+                        ),
+                        TextField(
+                          onChanged: (String inputItem) {
+                            Activity_Title = inputItem;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    ElevatedButton(
+                        onPressed: () {
+                          createTodos();
+
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Add')),
+                  ],
+                );
+              })),
+        ),
+        body: StreamBuilder(
+            stream:
+                FirebaseFirestore.instance.collection('Activities').snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot documentSnapshot =
+                        snapshot.data.docs[index];
+                    return Dismissible(
+                      onDismissed: (direction) {
+                        deleteTodos(documentSnapshot['Activity Title']);
+                      },
+                      key: Key(documentSnapshot['Activity Title']),
+                      child: Card(
+                        elevation: 16,
+                        margin: EdgeInsets.all(6),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        child: ListTile(
+                          title: Text(documentSnapshot['Activity Title']),
+                          trailing: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  deleteTodos(
+                                      documentSnapshot['Activity Title']);
+                                });
+                                ;
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              )),
+                        ),
+                      ),
+                    );
+                  });
+            }));
   }
 }

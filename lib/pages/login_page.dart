@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,61 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  bool _isLoading = false;
+
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+
+  void signin() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _email.text.trim(),
+        password: _password.text.trim(),
+      );
+
+      if (userCredential.user != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfilePage()),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      final errorMessage =
+          e.code == 'user-not-found' ? 'No user found.' : 'Wrong password.';
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Center(
+            child: Text(
+              errorMessage,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          backgroundColor: Colors.purple,
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   double _headerHeight = 250;
-  Key _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  var _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: _headerHeight,
               child: HeaderWidget(_headerHeight, true,
-                  Icons.login_rounded), //let's create a common header widget
+                  Icons.login_outlined), //let's create a common header widget
             ),
             SafeArea(
               child: Container(
@@ -42,36 +96,88 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         'WELCOME TO SHEELD',
                         style: TextStyle(
-                            fontSize: 60,
+                            fontSize: 33,
                             color: Colors.blue,
                             fontWeight: FontWeight.bold),
                       ),
+                       SizedBox(height: 15.0),
+
+                     
                       Text(
                         'Signin into your account',
                         style: TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(height: 30.0),
+                      SizedBox(height: 10.0),
+                      
                       Form(
                           key: _formKey,
                           child: Column(
                             children: [
                               Container(
-                                child: TextField(
+                                child: TextFormField(
+                                  controller: _email,
                                   decoration: ThemeHelper().textInputDecoration(
-                                      'User Name', 'Enter your user name'),
+                                    'E-mail address',
+                                    'Enter your email',
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your email';
+                                    } else if (!RegExp(
+                                            r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                                        .hasMatch(value)) {
+                                      return "Enter a valid email address";
+                                    }
+                                    return null;
+                                  },
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
                               ),
                               SizedBox(height: 30.0),
                               Container(
-                                child: TextField(
-                                  obscureText: true,
-                                  decoration: ThemeHelper().textInputDecoration(
-                                      'Password', 'Enter your password'),
+                                child: TextFormField(
+                                  controller: _password,
+                                  obscureText: !_passwordVisible,
+                                  decoration: InputDecoration(
+                                    labelText: 'Password',
+                                    hintText: 'Enter Password',
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    suffixIcon: IconButton(
+                                      icon: _passwordVisible
+                                          ? Icon(Icons.visibility,
+                                              color: Colors.purple)
+                                          : Icon(Icons.visibility_off,
+                                              color: Colors.red),
+                                      onPressed: () {
+                                        setState(() {
+                                          _passwordVisible = !_passwordVisible;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  // decoration: ThemeHelper().textInputDecoration(
+                                  //   'Password',
+                                  //   'Enter your password',
+                                  // ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      // Add null check before accessing value
+                                      return 'Please enter your password';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                decoration:
-                                    ThemeHelper().inputBoxDecorationShaddow(),
+                                // Add IconButton to toggle password visibility
+                                // Set _passwordVisible to the opposite of its current value
+                                // Use Icons.visibility and Icons.visibility_off for the two icons
+                                // Use the MaterialStateProperty.all() method to set the color of the icon
+                                // based on its state
                               ),
                               SizedBox(height: 15.0),
                               Container(
@@ -110,13 +216,12 @@ class _LoginPageState extends State<LoginPage> {
                                           color: Colors.white),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    //After successful login we will redirect to profile page. Let's create profile page now
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProfilePage()));
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        signin();
+                                      });
+                                    }
                                   },
                                 ),
                               ),
@@ -137,7 +242,9 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).accentColor),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
                                   ),
                                 ])),
                               ),

@@ -1,15 +1,13 @@
+// ignore: unnecessary_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Sheeld/pages/login_page.dart';
 import 'package:Sheeld/pages/splash_screen.dart';
 import 'package:Sheeld/pages/widgets/header_widget.dart';
-
-import 'forgot_password_page.dart';
-import 'forgot_password_verification_page.dart';
-import 'registration_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'location_page.dart';
-import 'package:Sheeld/reminder.dart';
+import 'package:Sheeld/partners.dart';
 import 'blocker.dart';
 import 'Todo.dart';
 
@@ -29,11 +27,11 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Profile Page",
+          "SHEELD",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0.5,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.blue),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -41,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   end: Alignment.bottomRight,
                   colors: <Color>[
                 Theme.of(context).primaryColor,
-                Theme.of(context).accentColor,
+                Theme.of(context).colorScheme.secondary,
               ])),
         ),
         actions: [
@@ -52,13 +50,13 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             child: Stack(
               children: <Widget>[
-                Icon(Icons.notifications),
+                Icon(Icons.block,color: Colors.blue,),
                 Positioned(
                   right: 0,
                   child: Container(
                     padding: EdgeInsets.all(1),
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.blue,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     constraints: BoxConstraints(
@@ -66,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       minHeight: 12,
                     ),
                     child: Text(
-                      '5',
+                      '',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 8,
@@ -92,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
                   colors: [
                 Theme.of(context).primaryColor.withOpacity(0.2),
-                Theme.of(context).accentColor.withOpacity(0.5),
+                Theme.of(context).colorScheme.secondary.withOpacity(0.5),
               ])),
           child: ListView(
             children: [
@@ -105,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     stops: [0.0, 1.0],
                     colors: [
                       Theme.of(context).primaryColor,
-                      Theme.of(context).accentColor,
+                      Theme.of(context).colorScheme.secondary,
                     ],
                   ),
                 ),
@@ -124,12 +122,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 leading: Icon(
                   Icons.screen_lock_landscape_rounded,
                   size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
                   'Splash Screen',
                   style: TextStyle(
-                      fontSize: 17, color: Theme.of(context).accentColor),
+                      fontSize: 17, color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () {
                   Navigator.push(
@@ -139,90 +137,21 @@ class _ProfilePageState extends State<ProfilePage> {
                               SplashScreen(title: "Splash Screen")));
                 },
               ),
-              ListTile(
-                leading: Icon(Icons.login_rounded,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Login Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.person_add_alt_1,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Registration Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegistrationPage()),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.password_rounded,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Forgot Password Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordPage()),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.verified_user_sharp,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Verification Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordVerificationPage()),
-                  );
-                },
-              ),
+              
               ListTile(
                 leading: Icon(Icons.block_rounded,
                     size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
+                    color: Theme.of(context).colorScheme.secondary),
                 title: Text(
                   'Blocker',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyBlocker()),
+                    MaterialPageRoute(builder: (context) => BlockWebPageApp()),
                   );
                 },
               ),
@@ -231,19 +160,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 1,
               ),
               ListTile(
-                leading: Icon(Icons.local_activity,
+                leading: Icon(Icons.people,
                     size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
+                    color: Theme.of(context).colorScheme.secondary),
                 title: Text(
-                  'TodoList',
+                  'Partner',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TodoList()),
+                    MaterialPageRoute(builder: (context) => SettingsPage()),
                   );
                 },
               ),
@@ -253,20 +182,20 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.notification_add_outlined,
+                  Icons.list,
                   size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
-                  'Reminder',
+                  'TodoList',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ReminderScreen()),
+                    MaterialPageRoute(builder: (context) => ToDoListPage()),
                   );
                 },
               ),
@@ -278,18 +207,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 leading: Icon(
                   Icons.location_city,
                   size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
                   'LocationTracker',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LocationTrackerPage()),
+                    MaterialPageRoute(builder: (context) => LocationTracker()),
                   );
                 },
               ),
@@ -301,16 +230,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 leading: Icon(
                   Icons.logout_rounded,
                   size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 title: Text(
                   'Logout',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
-                onTap: () {
-                  SystemNavigator.pop();
+               onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
                 },
               ),
             ],
@@ -322,7 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Container(
               height: 100,
-              child: HeaderWidget(100, false, Icons.house_rounded),
+              child: HeaderWidget(100, false, Icons.privacy_tip_outlined),
             ),
             Container(
               alignment: Alignment.center,
@@ -347,16 +279,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Icon(
                       Icons.person,
                       size: 80,
-                      color: Colors.grey.shade300,
+                      color: Colors.blue,
                     ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    'SHEELD.NET',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+                  GestureDetector(
+  onTap: () async {
+    const url = 'https://sheeld.net';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  },
+  child: Text(
+    'SHEELD.NET',
+    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+  ),
+),
                   SizedBox(
                     height: 20,
                   ),
@@ -376,7 +318,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               const EdgeInsets.only(left: 8.0, bottom: 4.0),
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "User Information",
+                            "Contact Information",
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,
@@ -396,30 +338,86 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ...ListTile.divideTiles(
                                       color: Colors.grey,
                                       tiles: [
-                                        ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 12, vertical: 4),
-                                          leading: Icon(Icons.my_location),
-                                          title: Text("Location"),
-                                          subtitle: Text("AFRICA"),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.email),
-                                          title: Text("Email"),
-                                          subtitle:
-                                              Text("sheeld.net@gmail.com"),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.phone),
-                                          title: Text("Phone"),
-                                          subtitle: Text("0797190942"),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.person),
-                                          title: Text("About Me"),
-                                          subtitle: Text(
-                                              "This is a about me link and you can khow about me in this section."),
-                                        ),
+                                        InkWell(
+  onTap: () async {
+    final Uri params = Uri(
+      scheme: 'https',
+      host: 'www.google.com',
+      path: '/maps/search/',
+      query: 'query=AFRICA'
+    );
+    final String mapUrl = params.toString();
+    if (await canLaunch(mapUrl)) {
+      await launch(mapUrl);
+    } else {
+      throw 'Could not launch $mapUrl';
+    }
+  },
+  child: ListTile(
+    contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+    leading: Icon(Icons.my_location, color: Colors.blue,),
+    title: Text("Location", ),
+    subtitle: Text("WorldWide"),
+    trailing: Icon(Icons.arrow_forward_ios),
+  ),
+),
+                                        InkWell(
+  onTap: () async {
+    final Uri params = Uri(
+      scheme: 'mailto',
+      path: 'sheeld.net@gmail.com',
+    );
+    final String emailUrl = params.toString();
+    if (await canLaunch(emailUrl)) {
+      await launch(emailUrl);
+    } else {
+      throw 'Could not launch $emailUrl';
+    }
+  },
+  child: ListTile(
+    leading: Icon(Icons.email, color: Colors.blue,),
+    title: Text("Email"),
+    subtitle: Text("sheeld.net@gmail.com"),
+    trailing: Icon(Icons.arrow_forward_ios),
+  ),
+),
+                                        InkWell(
+  onTap: () async {
+    final Uri params = Uri(
+      scheme: 'tel',
+      path: '0797190942',
+    );
+    final String phoneUrl = params.toString();
+    if (await canLaunch(phoneUrl)) {
+      await launch(phoneUrl);
+    } else {
+      throw 'Could not launch $phoneUrl';
+    }
+  },
+  child: ListTile(
+    leading: Icon(Icons.phone, color: Colors.blue,),
+    title: Text("Phone"),
+    subtitle: Text("0797190942"),
+    trailing: Icon(Icons.arrow_forward_ios),
+  ),
+),
+                                       InkWell(
+  onTap: () async {
+    const String url = 'https://sheeld.net';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  },
+  child: ListTile(
+    leading: Icon(Icons.person, color: Colors.blue,),
+    title: Text("About Us"),
+    subtitle: Text(
+        "Sheeld is Accountability Software that helps stay in track and also helps to curb some addictions."),
+    trailing: Icon(Icons.arrow_forward_ios),
+  ),
+)
                                       ],
                                     ),
                                   ],
